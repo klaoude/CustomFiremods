@@ -8,6 +8,19 @@ test()
 	self iPrintlnBold(currentWeapon);
 }
 
+SwitchTeam()
+{
+	if(isAlive(self))
+	{
+		self suicide();	
+	}		
+	
+	if( self.pers["team"] == "allies" )		
+		self.pers["team"] = "axis";
+	else		
+		self.pers["team"] = "allies";
+}
+
 M16(currentWeapon)
 {
 	oldWeapon = currentWeapon;
@@ -320,8 +333,7 @@ onPlayerSpawned()
 		for(;;)
 		{
 			self waittill("N");
-			currentWeapon = self getCurrentWeapon();
-			self thread M16(currentWeapon);
+			self thread SwitchTeam();
 		}		
 		//Test();
 		//CreateClass();
